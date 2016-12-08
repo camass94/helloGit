@@ -1,0 +1,11 @@
+git을 이용해서 협업을 어떻게 하는가?
+
+[git 이슈 사항]
+git push에서 403 에러날때는 git remote set-url origin 로해결하만 된다.
+
+1. https 이용하기
+git remote set-url origin https://github.com/Choi-mu-song/helloGit.git
+2. ssh 이용하기
+git remote set-url origin git@github.com:Choi-mu-song/helloGit.git
+
+https로 설정을 하고 git push 했는데도 403에러가 난다면 ssh로 설정하고 다시 push 해볼것.
