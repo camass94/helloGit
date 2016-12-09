@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>팝업창</h1>
+<button class="closeTodayBtn">오늘 하루동안 열지 않기</button>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+    // 하루동안 안열기 쿠키 저장
+    $(function() {
+        var closeTodayBtn = $('.closeTodayBtn');
+        // 버튼의 클래스명은 closeTodayBtn
+        closeTodayBtn.click(function() {
+            setCookie( "applyPopup", "end" , 1);
+            // 하루동안이므로 1을 설정
+            alert(getCookie("applyPopup"));
+            // window.close();
+            // 현재 열려있는 팝업은 닫으면서 쿠키값을 저장
+        });
+        /* setCookie function */
+        function setCookie(cname, value, expire) {
+            var todayValue = new Date();
+            // 오늘 날짜를 변수에 저장
+            todayValue.setDate(todayValue.getDate() + expire);
+            document.cookie = cname + "=" + encodeURI(value) + "; expires=" + todayValue.toGMTString() + "; path=/;";
+        }
+        function getCookie(name) {
+            var cookieName = name + "=";
+            var x = 0;
+            while ( x <= document.cookie.length ) {
+                var y = (x+cookieName.length);
+                if ( document.cookie.substring( x, y ) == cookieName) {
+                    if ((lastChrCookie=document.cookie.indexOf(";", y)) == -1)
+                        lastChrCookie = document.cookie.length;
+                    return decodeURI(document.cookie.substring(y, lastChrCookie));
+                }
+                x = document.cookie.indexOf(" ", x ) + 1;
+                if ( x == 0 )
+                    break;
+            }
+            return "";
+        }
+    });
+</script>
+</body>
+</html>
