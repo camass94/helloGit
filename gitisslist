@@ -21,4 +21,3 @@ git commit --amend
 
 파일 삭제
 git rm filename
-
