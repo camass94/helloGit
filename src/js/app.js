@@ -1,5 +1,4 @@
 'use strict';
-
 function runTest() {
     var totalTime,
         start,
@@ -53,7 +52,6 @@ var showName = (function () {
     };
 }());
 console.log(showName.getName());
-
 function myFunction () {
     var str = document.getElementById("demo").innerHTML;
     var n = str.replace("sdlfsjdflsjdlfkj", "replace test success!");
@@ -87,11 +85,3 @@ function convertTest () {
     var x = document.getElementById('arryDemo');
     x.innerHTML = phones;
 };
-
-var r = new XMLHttpRequest();
-r.open("post", "path/to/api", true);
-r.onreadystatechange = function () {
-    if (r.readyState != 4 || r.status != 200) return;
-    alert("success:" + r.responseText);
-};
-r.send("banana = yellow");

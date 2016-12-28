@@ -1,4 +1,4 @@
 {
-    "directory": "src/component"
-    /*"strict-ssl": false*/
+    "directory": "src/component",
+    "strict-ssl": false
 }

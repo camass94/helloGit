@@ -2,13 +2,15 @@
 
 import gulp from 'gulp';
 import gutil from 'gulp-util';
-import uglify from 'gulp-uglify';
+//import uglify from 'gulp-uglify';
 import cleanCSS from 'gulp-clean-css';
 import htmlmin from 'gulp-htmlmin';
 import imagemin from 'gulp-imagemin';
 import sass from 'gulp-sass';
 import include from 'gulp-file-include';
 import connect from  'gulp-connect';
+import babel from 'gulp-babel';
+import ts from 'gulp-typescript';
 import del from 'del';
 
 //const es6에 도입된 읽기전용 값은 상수를 선언할때 사용합니다.
@@ -19,6 +21,7 @@ const DIR = {
 
 const SRC = {
     JS: DIR.SRC + '/js/*.js',
+    TS: DIR.SRC + '/js/*.ts',
     CSS: DIR.SRC + '/css/*.css',
     SCSS: DIR.SRC + '/scss/*.scss',
     HTML: DIR.SRC + '/*.html',
@@ -43,8 +46,20 @@ gulp.task('connect', () => {
 
 gulp.task('js', () => {
    return gulp.src(SRC.JS)
-       .pipe(uglify())
+       .pipe(babel({
+           presets: ['es2015']
+       }))
+       //.pipe(uglify())
        .pipe(gulp.dest(DIST.JS));
+});
+
+gulp.task('tscript', () => {
+    return gulp.src(SRC.TS)
+        .pipe(ts({
+            noImplicitAny: true,
+            out: 'output.js'
+        }))
+        .pipe(gulp.dest(DIST.JS));
 });
 
 gulp.task('css', () => {
@@ -89,6 +104,7 @@ gulp.task('clean', () => {
 
 gulp.task('watch', () => {
     gulp.watch(SRC.JS, ['js']);
+    gulp.watch(SRC.TS, ['tscript']);
     gulp.watch(SRC.CSS, ['css']);
     gulp.watch(SRC.SCSS, ['sass']);
     gulp.watch(SRC.HTML, ['html']);
@@ -96,6 +112,6 @@ gulp.task('watch', () => {
     gulp.watch(SRC.IMAGES, ['img']);
 });
 
-gulp.task('default', ['connect', 'clean', 'js', 'css', 'sass', 'html', 'img', 'watch'], () => {
+gulp.task('default', ['connect', 'css', 'sass', 'html', 'img', 'tscript', 'js', 'clean', 'watch'], () => {
    return gutil.log('gulp is running');
 });
